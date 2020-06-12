@@ -42,10 +42,12 @@ const App = () => {
 export default App;
 
 const AppDiv = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
   h1{
     text-align: center;
     background-color: white;
-    opacity: 60%;
+    opacity: 65%;
     padding: 5%;
     font-size: 3rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -58,5 +60,5 @@ const AppDiv = styled.div`
     justify-content: space-around;
 
   }
-  
+
 `
