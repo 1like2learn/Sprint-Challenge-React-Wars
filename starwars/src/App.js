@@ -3,26 +3,27 @@ import axios from 'axios';
 import styled from 'styled-components';
 import './App.css';
 import CharacterCard from './components/Character';
+import {BASE_URL} from './Constants';
 
-const App = () => {
+const App = ()=> {
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
 
   const [characters, setCharacters] = useState([]);
-
+  const [urlPage, setUrlPage] = useState('');
   // Fetch characters from the API in an effect hook. Remember, anytime you have a 
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
-
+  
   useEffect(() =>{
-    axios.get('https://swapi.dev/api/people/')
+    // debugger
+    axios.get(`${BASE_URL}${urlPage}`)
     .then(response =>{
-      console.log(response.data.results)
-      setCharacters(response.data.results)
-      // debugger
+      console.log(response);
+      setCharacters(response.data.results);
     })
     .catch(error =>{
-      console.log(error)
+      console.log(error);
     })
   }, []);
 
@@ -30,10 +31,16 @@ const App = () => {
   return (
     <AppDiv>
       <h1>Characters</h1>
-      <div>
+      <div className= 'characters'>
         {characters.map((item) =>{
           return <CharacterCard key ={item.name} character = {item}/>
         })}
+      </div>
+      <div className= 'buttons'>
+        <button onClick={()=>{
+          setUrlPage(`?page=2`)
+        }}>Previous</button>
+        <button>Next</button>
       </div>
     </AppDiv>
   );
@@ -54,11 +61,27 @@ const AppDiv = styled.div`
 
   }
 
-  div{
+  div.characters{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 
+  }
+
+  div.buttons{
+    display: flex;
+    justify-content: space-evenly;
+
+    button{
+      padding: 1%;
+      margin: 5%;
+      opacity: 65%;
+
+    }
+
+    button:active{
+      background-color: white;
+    }
   }
 
 `
